@@ -20,7 +20,7 @@ public class BudgetApplication {
   private static void configureAWSXrayRecorder() {
     AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard()
             .withSegmentListener(new CustomSLF4JSegmentListener(""))
-//            .withSamplingStrategy(new LocalizedSamplingStrategy(BudgetApplication.class.getResource("/sampling-rules.json")))
+//            .withSamplingStrategy(new LocalizedSamplingStrategy(BudgetApplication.class.getResource("/sampling-rules.json"), true))
             .withPlugin(new ECSPlugin())
             .withFastIdGenerator()
             .withForcedTraceIdGeneration();

@@ -4,6 +4,7 @@ package com.viking.poc;
 import com.amazonaws.xray.AWSXRay;
 import com.amazonaws.xray.AWSXRayRecorderBuilder;
 import com.amazonaws.xray.plugins.ECSPlugin;
+import com.amazonaws.xray.strategy.sampling.LocalizedSamplingStrategy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -19,7 +20,7 @@ public class UserApplication {
   private static void configureAWSXrayRecorder() {
     AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard()
             .withSegmentListener(new CustomSLF4JSegmentListener(""))
-//            .withSamplingStrategy(new LocalizedSamplingStrategy(UserApplication.class.getResource("/sampling-rules.json")))
+            .withSamplingStrategy(new LocalizedSamplingStrategy(UserApplication.class.getResource("/sampling-rules.json"), true))
             .withPlugin(new ECSPlugin())
             .withFastIdGenerator()
             .withForcedTraceIdGeneration();
