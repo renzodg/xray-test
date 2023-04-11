@@ -1,15 +1,12 @@
 package com.viking.poc;
 
-import com.amazonaws.xray.AWSXRay;
-import com.amazonaws.xray.entities.Segment;
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+import io.opentelemetry.api.trace.Span;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@XRayEnabled
 @Slf4j
 public class UserController {
 
@@ -18,14 +15,14 @@ public class UserController {
 
   @GetMapping("/{id}")
   public User getUser(@PathVariable String id, @RequestParam boolean filter) {
-    log.info("testing-log");
+    log.info("UserController.getUser");
     return userService.getUserData(id);
   }
 
   @PostMapping
   public void createUser(@RequestBody User user) {
-    Segment currentSegment = AWSXRay.getCurrentSegment();
-    currentSegment.putMetadata("payload", user);
+    log.info("UserController.createUser");
+    Span.current().setAttribute("payload", user.toString());
     userService.createUser(user);
   }
 }

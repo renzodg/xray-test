@@ -1,16 +1,16 @@
 package com.viking.poc;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@XRayEnabled
 public class BudgetService {
 
   @Autowired
   private BudgetRepository budgetRepository;
 
+  @WithSpan
   public Double getBudget () {
     return budgetRepository.getBudgetAmount();
   }

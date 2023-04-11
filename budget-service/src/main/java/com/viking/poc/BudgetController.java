@@ -1,6 +1,5 @@
 package com.viking.poc;
 
-import com.amazonaws.xray.spring.aop.XRayEnabled;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/budget")
-@XRayEnabled
 @Slf4j
 public class BudgetController {
 
